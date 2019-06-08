@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
+import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.Glide
 
@@ -18,6 +19,14 @@ class GameListAdapter(private val context: Context,
         val rowView = layoutInflater.inflate(R.layout.list_item, parent, false)
         rowView.findViewById<TextView>(R.id.gameName).text = currentItem.name
         Glide.with(rowView).load(currentItem.picture).into(rowView.findViewById(R.id.gameImage))
+        if (currentItem.name == "Hangman" || currentItem.name == "SlidingPuzzle")
+        {
+            rowView.findViewById<ImageView>(R.id.playable).setImageResource(R.drawable.playable)
+        }
+        else
+        {
+            rowView.findViewById<ImageView>(R.id.playable).setImageResource(R.drawable.unplayable)
+        }
         return rowView
     }
 
