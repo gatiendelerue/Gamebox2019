@@ -7,4 +7,9 @@ class Game {
     val name : String = ""
     // An URL for an image representing the game
     val picture : String = ""
+
+    @Override
+    override fun toString(): String {
+        return "id : $id. name : $name, picture url : $picture"
+    }
 }
