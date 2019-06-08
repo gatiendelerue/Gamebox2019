@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.TextView
+import com.bumptech.glide.Glide
 
 class GameListAdapter(private val context: Context,
                       private val data: MutableList<Game>) : BaseAdapter()
@@ -16,6 +17,7 @@ class GameListAdapter(private val context: Context,
 
         val rowView = layoutInflater.inflate(R.layout.list_item, parent, false)
         rowView.findViewById<TextView>(R.id.gameName).text = currentItem.name
+        Glide.with(rowView).load(currentItem.picture).into(rowView.findViewById(R.id.gameImage))
         return rowView
     }
 
