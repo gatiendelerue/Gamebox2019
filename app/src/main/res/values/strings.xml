@@ -1,6 +1,10 @@
 <resources>
     <string name="app_name">Gamebox2019</string>
-
+    <string name="madeby">Made by :</string>
+    <string name="creator1">Gatien DELERUE</string>
+    <string name="creator2">Guillaume GRASSET</string>
+    <string name="creator3">Samy HUSSAEIN</string>
+    <string name="creator4">Florian PADEL</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
