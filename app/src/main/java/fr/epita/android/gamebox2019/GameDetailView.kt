@@ -13,6 +13,7 @@ import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.google.gson.GsonBuilder
 import kotlinx.android.synthetic.main.fragment_game_detail_view.*
+import kotlinx.android.synthetic.main.fragment_game_detail_view.view.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -33,12 +34,13 @@ class GameDetailsView : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
         val rootView = inflater.inflate(R.layout.fragment_game_detail_view, container, false)
-
+        Log.d("GAMEID", game_id.toString())
         return rootView
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
 
         val baseURL = "https://androidlessonsapi.herokuapp.com/api/"
         val jsonConverter = GsonConverterFactory.create(GsonBuilder().create())
@@ -47,6 +49,7 @@ class GameDetailsView : Fragment() {
             .addConverterFactory(jsonConverter)
             .build()
 
+        Log.d("GAMEID", game_id.toString())
         val service: WebServiceInterface = retrofit.create(WebServiceInterface::class.java)
 
         val call = game_id?.let { service.getGameDetail(it) }
@@ -59,18 +62,16 @@ class GameDetailsView : Fragment() {
             override fun onResponse(call: Call<GameDetail>, response: Response<GameDetail>) {
                 if (response.code() == 200) {
                     val data = response.body()
-                    Toast.makeText(activity, "popup", Toast.LENGTH_SHORT).show()
-                    /*game_name.text = data?.name
+                    game_name.text = data?.name
                     game_type.text = data?.type
-                    nb_player.text = "Nombre de joueurs: " + data?.players.toString()
-                    activity?.let { Glide.with(it).load(data?.picture).into(game_picture) }
-                    description_fr.text = data?.description_fr
-                    description_en.text = data?.description_en
+                    game_player.text = "Nombre de joueurs: " + data?.players.toString()
+                    activity?.let { Glide.with(it).load(data?.picture).into(game_img) }
+                    game_desc.text = data?.description_en
                     more_button.setOnClickListener {
                         val uri: Uri = Uri.parse(data?.url);
                         val intent = Intent(Intent.ACTION_VIEW, uri);
                         startActivity(intent);
-                    }*/
+                    }
                 }
             }
         })

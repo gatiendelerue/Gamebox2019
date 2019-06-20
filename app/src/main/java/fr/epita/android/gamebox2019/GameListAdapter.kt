@@ -27,6 +27,7 @@ class GameListAdapter(private val context: Context,
         {
             rowView.findViewById<ImageView>(R.id.playable).setImageResource(R.drawable.unplayable)
         }
+        rowView.id = currentItem.id
         return rowView
     }
 
@@ -36,6 +37,7 @@ class GameListAdapter(private val context: Context,
 
     override fun getItemId(position: Int): Long {
         return position.toLong()
+
     }
 
     override fun getCount(): Int {

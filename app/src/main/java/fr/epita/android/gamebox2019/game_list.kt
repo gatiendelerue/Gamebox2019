@@ -1,12 +1,14 @@
 package fr.epita.android.gamebox2019
 
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import android.widget.ListView
 import com.google.gson.GsonBuilder
 import retrofit2.Call
@@ -63,6 +65,12 @@ class GameList : Fragment() {
 
                         var adapter = GameListAdapter(this@GameList.requireContext(), data)
                         gameList.setAdapter(adapter)
+
+                        gameList.onItemClickListener = AdapterView.OnItemClickListener { parent, view, position, id ->
+                            val selected_item = parent.getItemAtPosition(position)
+
+                            (activity as MainActivity).showGameDetails(selected_item as Game)
+                        }
 
                     }
                 }
