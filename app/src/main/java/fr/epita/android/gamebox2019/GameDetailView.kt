@@ -64,7 +64,7 @@ class GameDetailsView : Fragment() {
                     val data = response.body()
                     game_name.text = data?.name
                     game_type.text = data?.type
-                    game_player.text = "Nombre de joueurs: " + data?.players.toString()
+                    game_player.text = "Number of players: " + data?.players.toString()
                     activity?.let { Glide.with(it).load(data?.picture).into(game_img) }
                     game_desc.text = data?.description_en
                     more_button.setOnClickListener {
