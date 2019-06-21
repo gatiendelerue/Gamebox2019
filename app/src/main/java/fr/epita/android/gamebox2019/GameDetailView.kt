@@ -9,6 +9,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.LinearLayout
+import android.widget.TextView
 import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.google.gson.GsonBuilder
@@ -27,9 +29,15 @@ class GameDetailsView : Fragment() {
     }
 
     var game_id : Int = 0;
+    var playable : Boolean = false;
 
     fun setGameId(game : Int) {
         this.game_id = game
+    }
+
+    fun setPlayableVar(playable : Boolean)
+    {
+        this.playable = playable
     }
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
@@ -40,7 +48,10 @@ class GameDetailsView : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        if (playable)
+        {
+            view.findViewById<LinearLayout>(R.id.playTheGame).visibility = View.VISIBLE
+        }
 
         val baseURL = "https://androidlessonsapi.herokuapp.com/api/"
         val jsonConverter = GsonConverterFactory.create(GsonBuilder().create())
@@ -61,17 +72,13 @@ class GameDetailsView : Fragment() {
 
             override fun onResponse(call: Call<GameDetail>, response: Response<GameDetail>) {
                 if (response.code() == 200) {
+
                     val data = response.body()
                     game_name.text = data?.name
-                    game_type.text = data?.type
+                    game_type.text = "Game type: " + data?.type
                     game_player.text = "Number of players: " + data?.players.toString()
                     activity?.let { Glide.with(it).load(data?.picture).into(game_img) }
                     game_desc.text = data?.description_en
-                    more_button.setOnClickListener {
-                        val uri: Uri = Uri.parse(data?.url);
-                        val intent = Intent(Intent.ACTION_VIEW, uri);
-                        startActivity(intent);
-                    }
                 }
             }
         })

@@ -69,7 +69,8 @@ class GameList : Fragment() {
                         gameList.onItemClickListener = AdapterView.OnItemClickListener { parent, view, position, id ->
                             val selected_item = parent.getItemAtPosition(position)
 
-                            (activity as MainActivity).showGameDetails(selected_item as Game)
+                            (activity as MainActivity).showGameDetails(selected_item as Game,
+                                selected_item.name == "Hangman"  || selected_item.name == "SlidingPuzzle" )
                         }
 
                     }

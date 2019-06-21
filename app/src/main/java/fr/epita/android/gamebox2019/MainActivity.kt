@@ -19,11 +19,11 @@ class MainActivity : AppCompatActivity() {
         fragmentTransaction.commit()
     }
 
-    fun showGameDetails(game : Game) {
+    fun showGameDetails(game : Game, playable : Boolean) {
         val fragmentTransaction = supportFragmentManager.beginTransaction()
         val gameDetails = GameDetailsView()
         gameDetails.setGameId(game.id)
-
+        gameDetails.setPlayableVar(playable)
         fragmentTransaction.replace(R.id.main_container, gameDetails)
         fragmentTransaction.commit()
     }

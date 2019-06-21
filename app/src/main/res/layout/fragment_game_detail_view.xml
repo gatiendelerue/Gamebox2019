@@ -17,33 +17,40 @@
                     android:layout_width="49dp"
                     android:layout_height="49dp" android:id="@+id/previous"
                     android:onClick="previous_main_page"/>
-            <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="51dp" android:id="@+id/game_name" android:textSize="25sp"
-                    android:paddingLeft="60dp"/>
         </LinearLayout>
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="51dp" android:id="@+id/game_name" android:textSize="25sp"
+                android:gravity="center"/>
         <ImageView
                 android:src="@mipmap/ic_launcher"
                 android:layout_width="match_parent"
                 android:layout_height="212dp" android:id="@+id/game_img" android:paddingLeft="10dp"/>
-        <LinearLayout
-                android:orientation="horizontal"
+        <TextView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-            <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" android:id="@+id/game_type"/>
-            <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" android:id="@+id/game_player" android:gravity="right"
-                    android:layout_marginLeft="10dp"/>
-        </LinearLayout>
+                android:layout_height="wrap_content" android:id="@+id/game_type" android:gravity="center"/>
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:id="@+id/game_player" android:gravity="center"
+        />
         <TextView
                 android:layout_width="match_parent"
                 android:layout_height="146dp" android:id="@+id/game_desc" android:gravity="center"/>
-        <Button
-                android:text="Want to know more ?"
+        <LinearLayout
+                android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" android:id="@+id/more_button"/>
+                android:layout_height="match_parent" android:visibility="invisible" android:id="@+id/playTheGame">
+            <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPersonName"
+                    android:ems="10"
+                    android:id="@+id/playerName" android:layout_weight="2" android:hint="@string/enter"
+                    android:contentDescription="@string/enter" android:autoText="false"/>
+            <Button
+                    android:text="@string/play"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:id="@+id/playButton" android:layout_weight="1"/>
+        </LinearLayout>
     </LinearLayout>
 </FrameLayout>

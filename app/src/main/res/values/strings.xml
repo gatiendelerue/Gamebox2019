@@ -7,5 +7,6 @@
     <string name="creator4">Florian PADEL</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="textview">TextView</string>
+    <string name="play">Play</string>
+    <string name="enter">Enter name</string>
 </resources>
