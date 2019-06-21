@@ -9,4 +9,6 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="play">Play</string>
     <string name="enter">Enter name</string>
+    <string name="submit">Submit</string>
+    <string name="enterletter">Enter letter</string>
 </resources>

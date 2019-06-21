@@ -8,10 +8,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import com.bumptech.glide.Glide
 import com.google.gson.GsonBuilder
 import kotlinx.android.synthetic.main.fragment_game_detail_view.*
@@ -22,7 +19,9 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-
+interface gameDetailInteractionListener {
+    fun onMyButtonWasClicked(name: String, gameName: String)
+}
 class GameDetailsView : Fragment() {
     interface OnFragmentInteractionListener {
         fun onFragmentInteraction(){}
@@ -31,16 +30,12 @@ class GameDetailsView : Fragment() {
     var game_id : Int = 0;
     var playable : Boolean = false;
 
-    fun setGameId(game : Int) {
-        this.game_id = game
-    }
-
     fun setPlayableVar(playable : Boolean)
     {
         this.playable = playable
     }
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-
+        this.game_id = this.arguments!!.getInt("id")
         val rootView = inflater.inflate(R.layout.fragment_game_detail_view, container, false)
         Log.d("GAMEID", game_id.toString())
         return rootView
@@ -48,6 +43,11 @@ class GameDetailsView : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        view.findViewById<ImageView>(R.id.previous).setOnClickListener {
+            (activity as MainActivity).onMyReturnButtonClicked()
+        }
+
         if (playable)
         {
             view.findViewById<LinearLayout>(R.id.playTheGame).visibility = View.VISIBLE
@@ -79,6 +79,9 @@ class GameDetailsView : Fragment() {
                     game_player.text = "Number of players: " + data?.players.toString()
                     activity?.let { Glide.with(it).load(data?.picture).into(game_img) }
                     game_desc.text = data?.description_en
+                    view.findViewById<Button>(R.id.playButton).setOnClickListener {
+                        (activity as MainActivity).onMyButtonWasClicked(view.findViewById<TextView>(R.id.playerName).text.toString(), game_name.text.toString())
+                    }
                 }
             }
         })

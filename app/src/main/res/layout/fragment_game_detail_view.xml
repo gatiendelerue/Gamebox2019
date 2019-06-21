@@ -16,7 +16,7 @@
                     android:src="?attr/homeAsUpIndicator"
                     android:layout_width="49dp"
                     android:layout_height="49dp" android:id="@+id/previous"
-                    android:onClick="previous_main_page"/>
+            />
         </LinearLayout>
         <TextView
                 android:layout_width="match_parent"

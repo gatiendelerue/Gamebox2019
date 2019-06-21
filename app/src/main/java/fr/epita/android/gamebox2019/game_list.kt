@@ -27,6 +27,11 @@ private const val ARG_PARAM2 = "param2"
  * A simple [Fragment] subclass.
  *
  */
+
+interface gameListInteractionListener {
+    fun onMyItemClicked(game: Game, playable: Boolean)
+    fun onMyReturnButtonClicked()
+}
 class GameList : Fragment() {
 
     override fun onCreateView(
@@ -69,7 +74,7 @@ class GameList : Fragment() {
                         gameList.onItemClickListener = AdapterView.OnItemClickListener { parent, view, position, id ->
                             val selected_item = parent.getItemAtPosition(position)
 
-                            (activity as MainActivity).showGameDetails(selected_item as Game,
+                            (activity as MainActivity).onMyItemClicked(selected_item as Game,
                                 selected_item.name == "Hangman"  || selected_item.name == "SlidingPuzzle" )
                         }
 
