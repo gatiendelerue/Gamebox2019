@@ -11,4 +11,5 @@
     <string name="enter">Enter name</string>
     <string name="submit">Submit</string>
     <string name="enterletter">Enter letter</string>
+    <string name="used">Used letter:</string>
 </resources>

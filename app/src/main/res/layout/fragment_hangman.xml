@@ -11,21 +11,27 @@
         <ImageView
                 android:src="@drawable/hg0"
                 android:layout_width="match_parent"
-                android:layout_height="450dp" android:id="@+id/imageView"/>
+                android:layout_height="450dp" android:id="@+id/hangedGuy"/>
         <TextView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" android:id="@+id/word" android:textSize="24sp"
-                android:textStyle="bold" android:gravity="center"/>
+                android:layout_height="wrap_content" android:id="@+id/wordText" android:textSize="30sp"
+                android:textStyle="bold" android:gravity="center"
+                android:textAllCaps="true"/>
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:id="@+id/usedLetterText" android:textAllCaps="true"
+                android:text="@string/used"/>
         <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content">
             <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textPersonName"
                     android:ems="10"
-                    android:id="@+id/letter" android:hint="@string/enterletter" android:layout_weight="1"/>
+                    android:id="@+id/letter" android:hint="@string/enterletter" android:layout_weight="1"
+                    android:maxLength="1"/>
             <Button
                     android:text="@string/submit"
                     android:layout_width="match_parent"

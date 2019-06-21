@@ -80,6 +80,7 @@ class GameDetailsView : Fragment() {
                     activity?.let { Glide.with(it).load(data?.picture).into(game_img) }
                     game_desc.text = data?.description_en
                     view.findViewById<Button>(R.id.playButton).setOnClickListener {
+                        Log.d("Button", "Play button pressed")
                         (activity as MainActivity).onMyButtonWasClicked(view.findViewById<TextView>(R.id.playerName).text.toString(), game_name.text.toString())
                     }
                 }
