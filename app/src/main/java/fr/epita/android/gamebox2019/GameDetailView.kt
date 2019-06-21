@@ -20,7 +20,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 interface gameDetailInteractionListener {
-    fun onMyButtonWasClicked(name: String, gameName: String)
+    fun onMyButtonWasClicked(name: String, gameName: String, gameId : Int)
 }
 class GameDetailsView : Fragment() {
     interface OnFragmentInteractionListener {
@@ -81,7 +81,7 @@ class GameDetailsView : Fragment() {
                     game_desc.text = data?.description_en
                     view.findViewById<Button>(R.id.playButton).setOnClickListener {
                         Log.d("Button", "Play button pressed")
-                        (activity as MainActivity).onMyButtonWasClicked(view.findViewById<TextView>(R.id.playerName).text.toString(), game_name.text.toString())
+                        (activity as MainActivity).onMyButtonWasClicked(view.findViewById<TextView>(R.id.playerName).text.toString(), game_name.text.toString(), game_id)
                     }
                 }
             }

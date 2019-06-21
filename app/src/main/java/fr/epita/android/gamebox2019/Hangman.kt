@@ -14,10 +14,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
+import android.widget.AdapterView
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import com.google.gson.GsonBuilder
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 import java.io.File
+import kotlin.math.log
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -35,11 +43,12 @@ class Hangman : Fragment() {
     var wordToFind : String? = null
     var usedLetter =  mutableListOf<String>()
     var tried = 0
-
+    var name = ""
         override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+            name = this.arguments?.getString("name").toString()
             val wordlist = context?.assets?.open("words.txt")?.bufferedReader()?.readLines()
             word = wordlist?.random()?.toLowerCase()
             Log.d("Word", word)
@@ -77,6 +86,8 @@ class Hangman : Fragment() {
             updateHangedMan(view)
             updateUsedLetter(view)
             updateLetter(view)
+            if (tried >= 11 || !view.findViewById<TextView>(R.id.wordText).text.contains("_"))
+                sendScore(view)
             tmp.text = ""
         }
     }
@@ -84,6 +95,7 @@ class Hangman : Fragment() {
     fun updateLetter(view : View){
         val text = view.findViewById<TextView>(R.id.wordText)
         var tmp = ""
+
         for (i in this.word?.toList()!!) {
             if (usedLetter.contains(i.toString())) {
                 tmp += i
@@ -128,5 +140,34 @@ class Hangman : Fragment() {
             ressource = R.drawable.hg11
 
         image.setImageResource(ressource)
+    }
+
+    fun sendScore(view: View){
+        var score = "loose"
+        val text = view.findViewById<TextView>(R.id.wordText)
+        if (!text.text.toString().contains("_")) {
+            score = "win"
+        }
+        val baseURL = "https://androidlessonsapi.herokuapp.com/api/"
+        val jsonConverter = GsonConverterFactory.create(GsonBuilder().create())
+        val retrofit = Retrofit.Builder().baseUrl(baseURL).addConverterFactory(jsonConverter).build()
+        val service: WebServiceInterface= retrofit.create(WebServiceInterface::class.java)
+
+        val wsCallBack : Callback<Boolean> = object : Callback<Boolean> {
+            override fun onFailure(call: Call<Boolean>, t: Throwable) {
+                Log.w("TAG", "Webservice call failed")
+            }
+
+            override fun onResponse(call: Call<Boolean>, response: Response<Boolean>) {
+                Log.d("Received", response.message())
+                // TODO add go to score screen
+                if (response.isSuccessful)
+                {
+                    Log.d("Post", "Successful")
+                }
+            }
+        }
+        Log.d("Send", "Send score " + score + " for game id " + this.arguments!!.getInt("id") + " for player " + name)
+        service.postScore(this.arguments!!.getInt("id"), score, this.name).enqueue(wsCallBack)
     }
 }

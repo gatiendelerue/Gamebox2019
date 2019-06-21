@@ -1,10 +1,7 @@
 package fr.epita.android.gamebox2019
 
 import retrofit2.Call
-import retrofit2.http.Field
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Query
+import retrofit2.http.*
 
 interface WebServiceInterface {
     @GET("game/list")
@@ -13,10 +10,11 @@ interface WebServiceInterface {
     @GET("game/details")
     fun getGameDetail(@Query("game_id") game_id: Int) : Call<GameDetail>
 
-    @GET("game/score")
+    @GET("game/scores")
     fun getScore() : Call<List<ScoreGet>>
 
-    @POST("/game/score")
+    @POST("game/score")
+    @FormUrlEncoded
     fun postScore(@Field("game_id") game_id : Int,
                   @Field("score") score : String,
                   @Field("player") player : String) : Call<Boolean>

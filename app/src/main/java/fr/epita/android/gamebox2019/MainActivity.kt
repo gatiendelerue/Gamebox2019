@@ -7,10 +7,11 @@ import android.support.v4.app.Fragment
 import android.view.View
 
 class MainActivity : AppCompatActivity(), gameDetailInteractionListener, gameListInteractionListener {
-    override fun onMyButtonWasClicked(name: String, gameName: String) {
+    override fun onMyButtonWasClicked(name: String, gameName: String, gameId : Int) {
         var bundle = Bundle()
         var game: Fragment? = null
         bundle.putString("name", name)
+        bundle.putInt("id", gameId)
         if (gameName == "Hangman") {
             game = Hangman()
         }
