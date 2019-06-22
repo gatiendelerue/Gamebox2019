@@ -37,6 +37,11 @@ private const val ARG_PARAM2 = "param2"
  * A simple [Fragment] subclass.
  *
  */
+
+interface hangmanInteractionListener {
+    fun displayScores()
+}
+
 class Hangman : Fragment() {
 
     var word : String? = null
@@ -164,9 +169,11 @@ class Hangman : Fragment() {
                 if (response.isSuccessful)
                 {
                     Log.d("Post", "Successful")
+                    (activity as MainActivity).displayScores()
                 }
             }
         }
+
         Log.d("Send", "Send score " + score + " for game id " + this.arguments!!.getInt("id") + " for player " + name)
         service.postScore(this.arguments!!.getInt("id"), score, this.name).enqueue(wsCallBack)
     }

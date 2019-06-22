@@ -11,7 +11,7 @@ interface WebServiceInterface {
     fun getGameDetail(@Query("game_id") game_id: Int) : Call<GameDetail>
 
     @GET("game/scores")
-    fun getScore() : Call<List<ScoreGet>>
+    fun getScore() : Call<List<Score>>
 
     @POST("game/score")
     @FormUrlEncoded

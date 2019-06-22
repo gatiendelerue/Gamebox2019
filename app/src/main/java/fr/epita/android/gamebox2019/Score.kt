@@ -1,6 +1,6 @@
 package fr.epita.android.gamebox2019
 
-class ScoreGet {
+class Score {
     // A timestamp showing when the game took place
     val date : String = ""
     // Id for the game that was played
