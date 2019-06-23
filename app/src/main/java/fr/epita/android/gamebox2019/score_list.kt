@@ -34,6 +34,8 @@ class ScoreList : Fragment() {
 
         val service: WebServiceInterface = retrofit.create(WebServiceInterface::class.java)
 
+        val gameId = this.arguments!!.getInt("id")
+
         val wsCallBack : Callback<List<Score>> = object : Callback<List<Score>> {
             override fun onFailure(call: Call<List<Score>>, t: Throwable) {
                 Log.w("TAG", "Webservice call failed")
@@ -48,7 +50,8 @@ class ScoreList : Fragment() {
                         Log.d("TAG", responseData.toString())
 
                         for (d in responseData) {
-                            data.add(d)
+                            if (d.game_id == gameId)
+                                data.add(d)
                         }
 
                         var adapter = ScoreListAdapter(this@ScoreList.requireContext(), data)

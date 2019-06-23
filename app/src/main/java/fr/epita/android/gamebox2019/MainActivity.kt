@@ -50,9 +50,13 @@ class MainActivity : AppCompatActivity(), gameDetailInteractionListener, gameLis
         fragmentTransaction.commit()
     }
 
-    override fun displayScores() {
+    override fun displayScores(gameId: Int) {
         val fragmentTransaction = supportFragmentManager.beginTransaction()
         val scoreList = ScoreList()
+        var bundle = Bundle()
+        bundle.putInt("id", gameId)
+        scoreList.arguments = bundle
+
         fragmentTransaction.replace(R.id.main_container, scoreList)
 
         fragmentTransaction.commit()

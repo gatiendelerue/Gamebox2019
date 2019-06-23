@@ -39,7 +39,7 @@ private const val ARG_PARAM2 = "param2"
  */
 
 interface hangmanInteractionListener {
-    fun displayScores()
+    fun displayScores(gameId: Int)
 }
 
 class Hangman : Fragment() {
@@ -158,6 +158,8 @@ class Hangman : Fragment() {
         val retrofit = Retrofit.Builder().baseUrl(baseURL).addConverterFactory(jsonConverter).build()
         val service: WebServiceInterface= retrofit.create(WebServiceInterface::class.java)
 
+        val gameId = this.arguments!!.getInt("id")
+
         val wsCallBack : Callback<Boolean> = object : Callback<Boolean> {
             override fun onFailure(call: Call<Boolean>, t: Throwable) {
                 Log.w("TAG", "Webservice call failed")
@@ -168,7 +170,7 @@ class Hangman : Fragment() {
                 if (response.isSuccessful)
                 {
                     Log.d("Post", "Successful")
-                    (activity as MainActivity).displayScores()
+                    (activity as MainActivity).displayScores(gameId)
                 }
             }
         }

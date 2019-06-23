@@ -50,7 +50,8 @@ class GameDetailsView : Fragment() {
 
         if (playable)
         {
-            view.findViewById<LinearLayout>(R.id.playTheGame).visibility = View.VISIBLE
+            playButton.visibility = View.VISIBLE
+            playerName.visibility = View.VISIBLE
         }
 
         val baseURL = "https://androidlessonsapi.herokuapp.com/api/"
