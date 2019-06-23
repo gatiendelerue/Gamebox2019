@@ -13,4 +13,6 @@
     <string name="enterletter">Enter letter</string>
     <string name="used">Used letter:</string>
     <string name="this_list_is_empty">This list is empty</string>
+    <string name="score">Score</string>
+    <string name="menu">Return to main menu</string>
 </resources>

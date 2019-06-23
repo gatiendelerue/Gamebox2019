@@ -1,7 +1,6 @@
 package fr.epita.android.gamebox2019
 
 
-import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.util.Log
@@ -44,7 +43,7 @@ class GameList : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        var gameList = view.findViewById<ListView>(R.id.itemList)
+        var gameList = view.findViewById<ListView>(R.id.gameList)
         val data = arrayListOf<Game>()
 
 

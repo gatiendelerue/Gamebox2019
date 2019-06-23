@@ -15,9 +15,12 @@ class ScoreListAdapter(private val context: Context,
         val currentItem : Score = getItem(position)
         val layoutInflater = LayoutInflater.from(context)
 
-        val rowView = layoutInflater.inflate(R.layout.list_item, parent, false)
-        rowView.findViewById<TextView>(R.id.textView).text = "Game: " + currentItem.game + ", player:" + currentItem.player + ", score: " + currentItem.score
-
+        val rowView = layoutInflater.inflate(R.layout.score_list_element, parent, false)
+        rowView.findViewById<TextView>(R.id.gameName).text = currentItem.game
+        rowView.findViewById<TextView>(R.id.playerName).text = currentItem.player
+        rowView.findViewById<TextView>(R.id.gameDate).text = currentItem.date
+        rowView.findViewById<TextView>(R.id.state).text = currentItem.score
+        rowView.id = position
         return rowView
     }
 

@@ -50,6 +50,13 @@ class MainActivity : AppCompatActivity(), gameDetailInteractionListener, gameLis
         fragmentTransaction.commit()
     }
 
+    override fun displayScores() {
+        val fragmentTransaction = supportFragmentManager.beginTransaction()
+        val scoreList = ScoreList()
+        fragmentTransaction.replace(R.id.main_container, scoreList)
+
+        fragmentTransaction.commit()
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -62,11 +69,4 @@ class MainActivity : AppCompatActivity(), gameDetailInteractionListener, gameLis
         fragmentTransaction.commit()
     }
 
-    override fun displayScores() {
-        val fragmentTransaction = supportFragmentManager.beginTransaction()
-        val scoreList = ScoreList()
-        fragmentTransaction.replace(R.id.main_container, scoreList)
-
-        fragmentTransaction.commit()
-    }
 }

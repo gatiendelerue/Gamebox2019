@@ -6,8 +6,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ListView
 import com.google.gson.GsonBuilder
-import kotlinx.android.synthetic.main.fragment_score_list.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -16,12 +16,13 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class ScoreList : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_game_detail_view, container, false)
+        return inflater.inflate(R.layout.fragment_score_list, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        val scoreList = view.findViewById<ListView>(R.id.scoreList)
+        Log.d("TAG", scoreList.toString())
         val data = arrayListOf<Score>()
 
         val baseURL = "https://androidlessonsapi.herokuapp.com/api/"
@@ -51,7 +52,8 @@ class ScoreList : Fragment() {
                         }
 
                         var adapter = ScoreListAdapter(this@ScoreList.requireContext(), data)
-                        itemList?.adapter = adapter
+                        Log.d("TAG", adapter.toString())
+                        scoreList.setAdapter(adapter)
                     }
                 }
             }

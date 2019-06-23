@@ -77,7 +77,7 @@ class Hangman : Fragment() {
             var tmp = view.findViewById<TextView>(R.id.letter)
             var held_str : String = tmp.text.toString().toLowerCase()
             Log.d("Input", held_str)
-            tmp.onEditorAction(EditorInfo.IME_ACTION_DONE)
+            //tmp.onEditorAction(EditorInfo.IME_ACTION_DONE)
 
             if (held_str.length != 1 || usedLetter.contains(held_str)) {
                 tmp.text = ""
@@ -165,7 +165,6 @@ class Hangman : Fragment() {
 
             override fun onResponse(call: Call<Boolean>, response: Response<Boolean>) {
                 Log.d("Received", response.message())
-                // TODO add go to score screen
                 if (response.isSuccessful)
                 {
                     Log.d("Post", "Successful")
