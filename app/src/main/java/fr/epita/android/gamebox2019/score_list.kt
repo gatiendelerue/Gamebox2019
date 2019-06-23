@@ -16,8 +16,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class ScoreList : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val rootView = inflater.inflate(R.layout.fragment_game_detail_view, container, false)
-        return rootView
+        return inflater.inflate(R.layout.fragment_game_detail_view, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -41,15 +40,18 @@ class ScoreList : Fragment() {
 
             override fun onResponse(call: Call<List<Score>>, response: Response<List<Score>>) {
                 if (response.code() == 200) {
-                    var responseData = response.body()
+                    val responseData = response.body()
+
                     if (responseData != null) {
+
                         Log.d("TAG", responseData.toString())
+
                         for (d in responseData) {
                             data.add(d)
                         }
 
                         var adapter = ScoreListAdapter(this@ScoreList.requireContext(), data)
-                        itemList.adapter = adapter
+                        itemList?.adapter = adapter
                     }
                 }
             }

@@ -11,7 +11,6 @@ import android.widget.TextView
 class ScoreListAdapter(private val context: Context,
                        private val data: MutableList<Score>) : BaseAdapter()
 {
-    @SuppressLint("SetTextI18n")
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
         val currentItem : Score = getItem(position)
         val layoutInflater = LayoutInflater.from(context)
@@ -28,12 +27,9 @@ class ScoreListAdapter(private val context: Context,
 
     override fun getItemId(position: Int): Long {
         return position.toLong()
-
     }
 
     override fun getCount(): Int {
         return data.size
     }
-
-
 }
