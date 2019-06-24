@@ -16,7 +16,7 @@ class MainActivity : AppCompatActivity(), gameDetailInteractionListener, gameLis
             game = Hangman()
         }
         else if (gameName == "SlidingPuzzle") {
-            //TODO Add sliding puzzle game
+            game = SlidingPuzzle()
         }
 
         if (game == null) {

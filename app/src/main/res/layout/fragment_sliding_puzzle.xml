@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                             xmlns:app="http://schemas.android.com/apk/res-auto"
+                                             xmlns:tools="http://schemas.android.com/tools"
+                                             android:layout_width="match_parent"
+                                             android:layout_height="match_parent"
+                                             tools:context=".SlidingPuzzle" android:id="@+id/frameLayout2">
+
+    <!-- TODO: Update blank fragment layout -->
+    <ImageView
+            android:layout_width="70dp"
+            android:layout_height="80dp" tools:src="@tools:sample/avatars[0]"
+            android:id="@+id/imagePuzzleMidRight"
+            app:layout_constraintStart_toEndOf="@+id/imagePuzzleMidMid"
+            app:layout_constraintTop_toTopOf="@+id/imagePuzzleMidMid"/>
+    <ImageView
+            android:layout_width="70dp"
+            android:layout_height="80dp" tools:src="@tools:sample/avatars[0]"
+            android:id="@+id/imagePuzzleMidLeft"
+            app:layout_constraintEnd_toStartOf="@+id/imagePuzzleMidMid"
+            app:layout_constraintTop_toTopOf="@+id/guideline3"/>
+    <ImageView
+            android:layout_width="70dp"
+            android:layout_height="80dp" tools:src="@tools:sample/avatars[0]"
+            android:id="@+id/imagePuzzleBotMid"
+            app:layout_constraintTop_toBottomOf="@+id/imagePuzzleMidMid"
+            app:layout_constraintEnd_toEndOf="@+id/imagePuzzleMidMid"
+    />
+    <ImageView
+            android:layout_width="70dp"
+            android:layout_height="80dp" tools:src="@tools:sample/avatars[0]"
+            android:id="@+id/imagePuzzleTopRight"
+            app:layout_constraintBottom_toTopOf="@+id/guideline3"
+            app:layout_constraintStart_toEndOf="@+id/imagePuzzleMidMid"
+    />
+    <ImageView
+            android:layout_width="70dp"
+            android:layout_height="80dp" tools:src="@tools:sample/avatars[0]"
+            android:id="@+id/imagePuzzleTopMid"
+            app:layout_constraintBottom_toTopOf="@+id/imagePuzzleMidMid"
+            app:layout_constraintEnd_toEndOf="@+id/imagePuzzleMidMid"
+    />
+    <ImageView
+            android:layout_width="70dp"
+            android:layout_height="80dp" tools:src="@tools:sample/avatars[0]"
+            android:id="@+id/imagePuzzleTopLeft"
+            app:layout_constraintBottom_toTopOf="@+id/imagePuzzleMidLeft"
+            app:layout_constraintEnd_toStartOf="@+id/guideline4"
+    />
+    <ImageView
+            android:layout_width="70dp"
+            android:layout_height="80dp" tools:src="@tools:sample/avatars[0]"
+            android:id="@+id/imagePuzzleBotRight"
+            app:layout_constraintTop_toBottomOf="@+id/imagePuzzleMidMid"
+            app:layout_constraintStart_toEndOf="@+id/imagePuzzleMidMid"
+    />
+    <ImageView
+            android:layout_width="70dp"
+            android:layout_height="80dp" tools:src="@tools:sample/avatars[0]"
+            android:id="@+id/imagePuzzleBotLeft"
+            app:layout_constraintTop_toBottomOf="@+id/imagePuzzleMidMid"
+            app:layout_constraintEnd_toStartOf="@+id/imagePuzzleMidMid"
+    />
+    <ImageView
+            android:layout_width="70dp"
+            android:layout_height="80dp" tools:src="@tools:sample/avatars[0]"
+            android:id="@+id/imagePuzzleMidMid"
+            app:layout_constraintTop_toTopOf="@+id/guideline3"
+            app:layout_constraintStart_toStartOf="@+id/guideline4"
+    />
+    <android.support.constraint.Guideline
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/guideline3"
+            app:layout_constraintGuide_percent="0.25"/>
+    <android.support.constraint.Guideline
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/guideline4"
+            app:layout_constraintGuide_percent="0.35"/>
+    <TextView
+            android:text="@string/remainingTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textRemainingTime" android:textStyle="bold"
+            android:textSize="18sp"
+            android:layout_marginTop="32dp" app:layout_constraintTop_toBottomOf="@+id/imagePuzzleBotMid"
+            app:layout_constraintEnd_toStartOf="@+id/textRemainingTimeCount" android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"/>
+    <TextView
+            android:text="@string/remainingTimeCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textRemainingTimeCount"
+            app:layout_constraintBottom_toBottomOf="@+id/textRemainingTime"
+            android:textSize="18sp" app:layout_constraintEnd_toStartOf="@+id/textTimeUnit"
+            android:layout_marginEnd="8dp" android:layout_marginRight="8dp"/>
+    <TextView
+            android:text="@string/remainingTimeUnit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textTimeUnit"
+            app:layout_constraintBottom_toBottomOf="@+id/textRemainingTime"
+            android:textSize="18sp" app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="20dp"
+            android:layout_marginRight="20dp"/>
+
+</android.support.constraint.ConstraintLayout>

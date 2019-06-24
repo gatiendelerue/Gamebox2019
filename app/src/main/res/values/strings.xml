@@ -15,4 +15,7 @@
     <string name="this_list_is_empty">This list is empty</string>
     <string name="score">Score</string>
     <string name="menu">Return to main menu</string>
+    <string name="remainingTimeCount">60</string>
+    <string name="remainingTimeUnit">seconds</string>
+    <string name="remainingTime">Remaining time :</string>
 </resources>
