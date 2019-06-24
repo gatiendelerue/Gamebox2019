@@ -30,28 +30,34 @@ class SlidingPuzzle : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val imageTopLeft : ImageView = view.findViewById(R.id.imagePuzzleTopLeft)
-        val imageTopMid : ImageView = view.findViewById(R.id.imagePuzzleTopMid)
-        val imageTopRight : ImageView = view.findViewById(R.id.imagePuzzleTopRight)
-        val imageMidLeft : ImageView = view.findViewById(R.id.imagePuzzleMidLeft)
-        val imageMidMid : ImageView = view.findViewById(R.id.imagePuzzleMidMid)
-        val imageMidRight : ImageView = view.findViewById(R.id.imagePuzzleMidRight)
-        val imageBotLeft : ImageView = view.findViewById(R.id.imagePuzzleBotLeft)
-        val imageBotMid : ImageView = view.findViewById(R.id.imagePuzzleBotMid)
-        val imageBotRight : ImageView = view.findViewById(R.id.imagePuzzleBotRight)
+        val imageTopLeft: ImageView = view.findViewById(R.id.imagePuzzleTopLeft)
+        val imageTopMid: ImageView = view.findViewById(R.id.imagePuzzleTopMid)
+        val imageTopRight: ImageView = view.findViewById(R.id.imagePuzzleTopRight)
+        val imageMidLeft: ImageView = view.findViewById(R.id.imagePuzzleMidLeft)
+        val imageMidMid: ImageView = view.findViewById(R.id.imagePuzzleMidMid)
+        val imageMidRight: ImageView = view.findViewById(R.id.imagePuzzleMidRight)
+        val imageBotLeft: ImageView = view.findViewById(R.id.imagePuzzleBotLeft)
+        val imageBotMid: ImageView = view.findViewById(R.id.imagePuzzleBotMid)
+        val imageBotRight: ImageView = view.findViewById(R.id.imagePuzzleBotRight)
 
-        val drawables : MutableList<Int> = mutableListOf(R.drawable.number_1, R.drawable.number_2, R.drawable.number_3,
-                                            R.drawable.number_4, R.drawable.number_5, R.drawable.number_6,
-                                            R.drawable.number_7, R.drawable.number_8, R.drawable.blank)
+        val drawables: MutableList<Int> = mutableListOf(
+            R.drawable.number_1, R.drawable.number_2, R.drawable.number_3,
+            R.drawable.number_4, R.drawable.number_5, R.drawable.number_6,
+            R.drawable.number_7, R.drawable.number_8, R.drawable.blank
+        )
 
-        val images : Array<ImageView> = arrayOf(imageBotLeft, imageBotMid, imageBotRight, imageMidLeft, imageMidMid,
-                                                    imageMidRight, imageTopLeft, imageTopMid, imageTopRight)
+        val images: Array<ImageView> = arrayOf(
+            imageBotLeft, imageBotMid, imageBotRight, imageMidLeft, imageMidMid,
+            imageMidRight, imageTopLeft, imageTopMid, imageTopRight
+        )
         var drawable: Int
 
         for (image in images) {
             drawable = drawables.random()
             Log.d("IMAGE", this.context?.resources?.getResourceEntryName(drawable))
             image.setImageResource(drawable)
+            image.setOnTouchListener(SlidingTouchListener())
+            image.setOnHoverListener(SlidingHoverListener())
             drawables.remove(drawable)
         }
     }
