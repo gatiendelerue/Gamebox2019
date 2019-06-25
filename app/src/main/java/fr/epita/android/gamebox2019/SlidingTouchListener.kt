@@ -114,3 +114,10 @@ class SlidingTouchListener(upperView: View) : View.OnTouchListener {
         v1.setImageDrawable(temp)
     }
 }
+
+
+class EmptyOnTouchListener() : View.OnTouchListener {
+    override fun onTouch(v: View?, event: MotionEvent?): Boolean {
+        return false
+    }
+}

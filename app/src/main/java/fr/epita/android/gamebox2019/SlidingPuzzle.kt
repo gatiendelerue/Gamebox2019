@@ -8,6 +8,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import java.util.*
+import kotlin.concurrent.timerTask
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -66,5 +68,13 @@ class SlidingPuzzle : Fragment() {
         }
 
         slidingCompanion.blankView = blankView
+
+        val timer = Timer()
+        val timerUpdateTask = SlidingPuzzleTimerUpdate(view.findViewById(R.id.textRemainingTimeCount))
+        val timerTask = SlidingPuzzleTimer(images, arrayOf(view.findViewById(R.id.textGameOver),
+                                                            view.findViewById(R.id.textWinOrLoose)))
+        val time : Long = 60000
+        timer.schedule(timerTask, time)
+        // timer.schedule(timerUpdateTask, 0, 1000)  // TODO BROKEN
     }
 }
