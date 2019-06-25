@@ -52,12 +52,19 @@ class SlidingPuzzle : Fragment() {
         )
         var drawable: Int
 
+        var blankView : ImageView? = null
+
         for (image in images) {
             drawable = drawables.random()
             Log.d("IMAGE", this.context?.resources?.getResourceEntryName(drawable))
+            if (drawable == R.drawable.blank) {
+                blankView = image
+            }
             image.setImageResource(drawable)
             image.setOnTouchListener(SlidingTouchListener(view))
             drawables.remove(drawable)
         }
+
+        slidingCompanion.blankView = blankView
     }
 }

@@ -5,34 +5,62 @@ import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import android.widget.ImageView
+import fr.epita.android.gamebox2019.slidingCompanion.blankView
 
-class SlidingTouchListener(upperView : View) : View.OnTouchListener {
+@SuppressLint("StaticFieldLeak")
+object slidingCompanion {
+    var blankView : ImageView? = null
+}
+
+class SlidingTouchListener(upperView: View) : View.OnTouchListener {
     val parentView = upperView
 
     override fun onTouch(v: View?, event: MotionEvent?): Boolean {
         val X = event!!.rawX
         val Y = event.rawY
+
         when (event.action and MotionEvent.ACTION_MASK) {
             MotionEvent.ACTION_DOWN -> {
                 Log.d("Puzzle", "Down on ${v!!.id}")
             }
             MotionEvent.ACTION_UP -> {
-                Log.d("Puzzle", "Up")
-                val adjacents = getAdjacent(v!!)
+                Log.d("Puzzle", "Up (blank view is ${blankView!!.id})")
 
-                for (adjacent in adjacents) {
-                    val view = parentView.findViewById<ImageView>(adjacent)
-                    if (isInView(X, Y, view)) {
-                        swapImages(v as ImageView, view)
+                val adjacent = getAdjacent(blankView!!)
+                for (i in adjacent.indices)
+                {
+                    adjacent[i] = parentView.findViewById<ImageView>(adjacent[i] as Int)
+                }
+
+                if (v == blankView)
+                {
+                    for (view in adjacent) {
+                        if (isInView(X, Y, view as ImageView))
+                        {
+                            Log.d("Puzzle", "Swap")
+                            swapImages(v as ImageView, blankView!!)
+                            blankView = view
+                        }
                     }
                 }
+                else {
+                    for (view in adjacent) {
+                        if (v == view && isInView(X, Y, blankView!!)) {
+                            Log.d("Puzzle", "Swap")
+                            swapImages(v as ImageView, blankView!!)
+                            blankView = v
+                        }
+                    }
+                }
+
             }
 
         }
         return true
     }
 
-    private fun isInView(X: Float, Y: Float, view: View): Boolean {
+
+    private fun isInView(X: Float, Y: Float, view: ImageView): Boolean {
         val pos = IntArray(2)
         view.getLocationInWindow(pos)
 
@@ -44,7 +72,7 @@ class SlidingTouchListener(upperView : View) : View.OnTouchListener {
         return true
     }
 
-    private fun getAdjacent(v: View): Array<Int> {
+    private fun getAdjacent(v: View): Array<Any> {
         when (v.id) {
             R.id.imagePuzzleTopLeft -> {
                 return arrayOf(R.id.imagePuzzleMidLeft, R.id.imagePuzzleTopMid)
