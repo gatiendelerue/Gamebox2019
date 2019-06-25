@@ -18,4 +18,7 @@
     <string name="remainingTimeCount">60</string>
     <string name="remainingTimeUnit">seconds</string>
     <string name="remainingTime">Remaining time :</string>
+    <string name="game_over">GAME OVER</string>
+    <string name="loose">You loose</string>
+    <string name="Win">You win</string>
 </resources>
