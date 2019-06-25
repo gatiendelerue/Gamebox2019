@@ -57,7 +57,6 @@ class SlidingPuzzle : Fragment() {
             Log.d("IMAGE", this.context?.resources?.getResourceEntryName(drawable))
             image.setImageResource(drawable)
             image.setOnTouchListener(SlidingTouchListener(view))
-            image.setOnHoverListener(SlidingHoverListener())
             drawables.remove(drawable)
         }
     }
