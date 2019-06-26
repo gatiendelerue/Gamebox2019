@@ -10,27 +10,28 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import com.google.gson.GsonBuilder
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 import java.util.*
 import kotlin.concurrent.timerTask
 
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- *
- */
-
+interface slidingPuzzleInteractionListener {
+    fun displayScores(gameId: Int, gameState: String)
+}
 
 class SlidingPuzzle : Fragment() {
+    var name : String = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        name = this.arguments?.getString("name").toString()
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_sliding_puzzle, container, false)
     }
@@ -86,23 +87,42 @@ class SlidingPuzzle : Fragment() {
         slidingCompanion.blankView = blankView
 
 
-        val timer = object : CountDownTimer(60000, 1000) {
+        object : CountDownTimer(60000, 1000) {
             override fun onFinish() {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                sendScore("loose")
+                Log.d("Puzzle", "Player lost")
             }
 
             override fun onTick(p0: Long) {
-
                 view.findViewById<TextView>(R.id.textRemainingTimeCount).text = (p0/1000).toString()
             }
         }.start()
-        val timerUpdateTask = SlidingPuzzleTimerUpdate(view.findViewById(R.id.textRemainingTimeCount))
-        val timerTask = SlidingPuzzleTimer(
-            images, arrayOf(
-                view.findViewById(R.id.textGameOver),
-                view.findViewById(R.id.textWinOrLoose)
-            )
-        )
+    }
 
+    fun sendScore(score: String){
+        val baseURL = "https://androidlessonsapi.herokuapp.com/api/"
+        val jsonConverter = GsonConverterFactory.create(GsonBuilder().create())
+        val retrofit = Retrofit.Builder().baseUrl(baseURL).addConverterFactory(jsonConverter).build()
+        val service: WebServiceInterface= retrofit.create(WebServiceInterface::class.java)
+
+        val gameId = this.arguments!!.getInt("id")
+
+        val wsCallBack : Callback<Boolean> = object : Callback<Boolean> {
+            override fun onFailure(call: Call<Boolean>, t: Throwable) {
+                Log.w("TAG", "Webservice call failed")
+            }
+
+            override fun onResponse(call: Call<Boolean>, response: Response<Boolean>) {
+                Log.d("Received", response.message())
+                if (response.isSuccessful)
+                {
+                    Log.d("Post", "Successful")
+                    (activity as MainActivity).displayScores(gameId, score)
+                }
+            }
+        }
+
+        Log.d("Send", "Send score " + score + " for game id " + this.arguments!!.getInt("id") + " for player " + name)
+        service.postScore(this.arguments!!.getInt("id"), score, this.name).enqueue(wsCallBack)
     }
 }

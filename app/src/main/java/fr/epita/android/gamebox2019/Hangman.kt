@@ -39,7 +39,7 @@ private const val ARG_PARAM2 = "param2"
  */
 
 interface hangmanInteractionListener {
-    fun displayScores(gameId: Int)
+    fun displayScores(gameId: Int, gameState: String)
 }
 
 class Hangman : Fragment() {
@@ -170,7 +170,7 @@ class Hangman : Fragment() {
                 if (response.isSuccessful)
                 {
                     Log.d("Post", "Successful")
-                    (activity as MainActivity).displayScores(gameId)
+                    (activity as MainActivity).displayScores(gameId, score)
                 }
             }
         }

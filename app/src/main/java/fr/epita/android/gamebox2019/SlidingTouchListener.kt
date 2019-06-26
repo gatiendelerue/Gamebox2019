@@ -55,10 +55,9 @@ class SlidingTouchListener(private val parentView: View, private var numberViewM
                 }
                 if (playerHasWon())
                 {
+                    val a = SlidingPuzzle()
+                    a.sendScore("win")
                     Log.d("Puzzle", "Player won")
-                    parentView.findViewById<TextView>(R.id.textGameOver).visibility = View.VISIBLE
-                    parentView.findViewById<TextView>(R.id.textWinOrLoose).visibility = View.VISIBLE
-                    parentView.findViewById<TextView>(R.id.textWinOrLoose).text = parentView.context.getString(R.string.Win)
                 }
             }
 

@@ -6,7 +6,7 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.View
 
-class MainActivity : AppCompatActivity(), gameDetailInteractionListener, gameListInteractionListener, hangmanInteractionListener {
+class MainActivity : AppCompatActivity(), gameDetailInteractionListener, gameListInteractionListener, hangmanInteractionListener, slidingPuzzleInteractionListener {
     override fun onMyButtonWasClicked(name: String, gameName: String, gameId : Int) {
         var bundle = Bundle()
         var game: Fragment? = null
@@ -50,11 +50,12 @@ class MainActivity : AppCompatActivity(), gameDetailInteractionListener, gameLis
         fragmentTransaction.commit()
     }
 
-    override fun displayScores(gameId: Int) {
+    override fun displayScores(gameId: Int, gameState: String) {
         val fragmentTransaction = supportFragmentManager.beginTransaction()
         val scoreList = ScoreList()
         var bundle = Bundle()
         bundle.putInt("id", gameId)
+        bundle.putString("state", gameState)
         scoreList.arguments = bundle
 
         fragmentTransaction.replace(R.id.main_container, scoreList)
