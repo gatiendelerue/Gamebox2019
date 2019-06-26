@@ -16,16 +16,16 @@ class ScoreListAdapter(private val context: Context,
 
         val rowView = layoutInflater.inflate(R.layout.score_list_element, parent, false)
 
-        rowView.findViewById<TextView>(R.id.playerName).text = "Player: " + currentItem.player + ","
+        rowView.findViewById<TextView>(R.id.playerName).text = "Name: " + currentItem.player + ","
         rowView.findViewById<TextView>(R.id.gameDate).text = "date: " + currentItem.date.split("T")[0] + ","
 
         val gameState = rowView.findViewById<TextView>(R.id.gameState)
         if (currentItem.score == "win")
             gameState.text = "game won"
         else if (currentItem.score =="loose")
-            gameState.text = "game loosed"
+            gameState.text = "game lost"
         else
-            gameState.text = "game draw"
+            gameState.text = "game drawn"
 
         rowView.id = position
         return rowView

@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.ListView
+import android.widget.Toast
 import com.google.gson.GsonBuilder
 import kotlinx.android.synthetic.main.fragment_score_list.*
 import retrofit2.Call
@@ -17,7 +18,10 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 class ScoreList : Fragment() {
+    private var state : String = ""
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        state = this.arguments!!.getString("state").toString()
         return inflater.inflate(R.layout.fragment_score_list, container, false)
     }
 
@@ -61,7 +65,18 @@ class ScoreList : Fragment() {
 
                         title.text = "Scores for " + data[0].game
 
+                        val score : String
+                        if (state == "win")
+                            score = "You won the game"
+                        else if (state =="loose")
+                            score = "You lost the game"
+                        else
+                            score = "Game draw"
+
+                        Toast.makeText(context, score, Toast.LENGTH_LONG).show()
+
                         scoreList.setAdapter(adapter)
+
                     }
                 }
             }
