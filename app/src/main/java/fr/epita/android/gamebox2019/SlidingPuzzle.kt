@@ -2,12 +2,14 @@ package fr.epita.android.gamebox2019
 
 
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.support.v4.app.Fragment
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.TextView
 import java.util.*
 import kotlin.concurrent.timerTask
 
@@ -21,6 +23,8 @@ private const val ARG_PARAM2 = "param2"
  * A simple [Fragment] subclass.
  *
  */
+
+
 class SlidingPuzzle : Fragment() {
 
     override fun onCreateView(
@@ -82,7 +86,16 @@ class SlidingPuzzle : Fragment() {
         slidingCompanion.blankView = blankView
 
 
-        val timer = Timer()
+        val timer = object : CountDownTimer(60000, 1000) {
+            override fun onFinish() {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
+
+            override fun onTick(p0: Long) {
+
+                view.findViewById<TextView>(R.id.textRemainingTimeCount).text = (p0/1000).toString()
+            }
+        }.start()
         val timerUpdateTask = SlidingPuzzleTimerUpdate(view.findViewById(R.id.textRemainingTimeCount))
         val timerTask = SlidingPuzzleTimer(
             images, arrayOf(
@@ -90,8 +103,6 @@ class SlidingPuzzle : Fragment() {
                 view.findViewById(R.id.textWinOrLoose)
             )
         )
-        val time: Long = 60000
-        timer.schedule(timerTask, time)
-        // timer.schedule(timerUpdateTask, 0, 1000)  // TODO BROKEN*/
+
     }
 }
