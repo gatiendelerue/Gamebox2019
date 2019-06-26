@@ -49,32 +49,49 @@ class SlidingPuzzle : Fragment() {
         )
 
         val images: Array<ImageView> = arrayOf(
-            imageBotLeft, imageBotMid, imageBotRight, imageMidLeft, imageMidMid,
-            imageMidRight, imageTopLeft, imageTopMid, imageTopRight
-        )
-        var drawable: Int
+            imageTopLeft, imageTopMid, imageTopRight, imageMidLeft, imageMidMid,
+            imageMidRight, imageBotLeft, imageBotMid, imageBotRight
+            )
+        var image: ImageView
+        var blankView: ImageView? = null
 
-        var blankView : ImageView? = null
+        val numberViewMap: MutableMap<Int, ImageView> = mutableMapOf()
+        var i = 0
+        val imagesCopy = images.copyOf().toMutableList()
 
-        for (image in images) {
-            drawable = drawables.random()
+        for (drawable in drawables) {
+            i += 1
+            image = imagesCopy.random()
             Log.d("IMAGE", this.context?.resources?.getResourceEntryName(drawable))
             if (drawable == R.drawable.blank) {
                 blankView = image
             }
+
+            // The key match the number on the square
+            numberViewMap[i] = image
             image.setImageResource(drawable)
-            image.setOnTouchListener(SlidingTouchListener(view))
-            drawables.remove(drawable)
+
+            imagesCopy.remove(image)
+        }
+
+        for (imageView in images) {
+            Log.d("Puzzle", "numberViewMap :$numberViewMap")
+            imageView.setOnTouchListener(SlidingTouchListener(view, numberViewMap, images))
         }
 
         slidingCompanion.blankView = blankView
 
+
         val timer = Timer()
         val timerUpdateTask = SlidingPuzzleTimerUpdate(view.findViewById(R.id.textRemainingTimeCount))
-        val timerTask = SlidingPuzzleTimer(images, arrayOf(view.findViewById(R.id.textGameOver),
-                                                            view.findViewById(R.id.textWinOrLoose)))
-        val time : Long = 60000
+        val timerTask = SlidingPuzzleTimer(
+            images, arrayOf(
+                view.findViewById(R.id.textGameOver),
+                view.findViewById(R.id.textWinOrLoose)
+            )
+        )
+        val time: Long = 60000
         timer.schedule(timerTask, time)
-        // timer.schedule(timerUpdateTask, 0, 1000)  // TODO BROKEN
+        // timer.schedule(timerUpdateTask, 0, 1000)  // TODO BROKEN*/
     }
 }

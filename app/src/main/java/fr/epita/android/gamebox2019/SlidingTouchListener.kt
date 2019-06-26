@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import android.widget.ImageView
+import android.widget.TextView
 import fr.epita.android.gamebox2019.slidingCompanion.blankView
 
 @SuppressLint("StaticFieldLeak")
@@ -12,8 +13,9 @@ object slidingCompanion {
     var blankView : ImageView? = null
 }
 
-class SlidingTouchListener(upperView: View) : View.OnTouchListener {
-    val parentView = upperView
+class SlidingTouchListener(private val parentView: View, private var numberViewMap : MutableMap<Int, ImageView>,
+                            private val viewsExpected : Array<ImageView>) :
+                            View.OnTouchListener {
 
     override fun onTouch(v: View?, event: MotionEvent?): Boolean {
         val X = event!!.rawX
@@ -24,6 +26,7 @@ class SlidingTouchListener(upperView: View) : View.OnTouchListener {
                 Log.d("Puzzle", "Down on ${v!!.id}")
             }
             MotionEvent.ACTION_UP -> {
+                Log.d("PuzzleMap", numberViewMap.toString())
                 Log.d("Puzzle", "Up (blank view is ${blankView!!.id})")
 
                 val adjacent = getAdjacent(blankView!!)
@@ -37,7 +40,6 @@ class SlidingTouchListener(upperView: View) : View.OnTouchListener {
                     for (view in adjacent) {
                         if (isInView(X, Y, view as ImageView))
                         {
-                            Log.d("Puzzle", "Swap")
                             swapImages(v as ImageView, blankView!!)
                             blankView = view
                         }
@@ -46,19 +48,33 @@ class SlidingTouchListener(upperView: View) : View.OnTouchListener {
                 else {
                     for (view in adjacent) {
                         if (v == view && isInView(X, Y, blankView!!)) {
-                            Log.d("Puzzle", "Swap")
                             swapImages(v as ImageView, blankView!!)
                             blankView = v
                         }
                     }
                 }
-
+                if (playerHasWon())
+                {
+                    Log.d("Puzzle", "Player won")
+                    parentView.findViewById<TextView>(R.id.textGameOver).visibility = View.VISIBLE
+                    parentView.findViewById<TextView>(R.id.textWinOrLoose).visibility = View.VISIBLE
+                    parentView.findViewById<TextView>(R.id.textWinOrLoose).text = parentView.context.getString(R.string.Win)
+                }
             }
 
         }
         return true
     }
 
+    private fun playerHasWon() : Boolean {
+
+        for (i in 0..8) {
+            if (numberViewMap[i + 1] != viewsExpected[i]) {
+                return false
+            }
+        }
+        return true
+    }
 
     private fun isInView(X: Float, Y: Float, view: ImageView): Boolean {
         val pos = IntArray(2)
@@ -109,9 +125,24 @@ class SlidingTouchListener(upperView: View) : View.OnTouchListener {
     }
 
     private fun swapImages(v1: ImageView, v2: ImageView) {
+
+        // swapping images
         val temp = v2.drawable
         v2.setImageDrawable(v1.drawable)
         v1.setImageDrawable(temp)
+
+        // updating the map
+
+        val mapKey1 = numberViewMap.filterKeys { key -> numberViewMap[key] == v1 }
+        val mapKey2 = numberViewMap.filterKeys { key -> numberViewMap[key] == v2 }
+        val key1 = mapKey1.entries.first().key
+        val key2 = mapKey2.entries.first().key
+
+        Log.d("PuzzleSwap", "Swap key $key1 and $key2")
+        val tempVal = numberViewMap[key1]
+        numberViewMap[key1] = numberViewMap[key2]!!
+        numberViewMap[key2] = tempVal!!
+
     }
 }
 
