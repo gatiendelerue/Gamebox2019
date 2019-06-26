@@ -1,6 +1,5 @@
 package fr.epita.android.gamebox2019
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -16,10 +15,18 @@ class ScoreListAdapter(private val context: Context,
         val layoutInflater = LayoutInflater.from(context)
 
         val rowView = layoutInflater.inflate(R.layout.score_list_element, parent, false)
-        rowView.findViewById<TextView>(R.id.gameName).text = currentItem.game
-        rowView.findViewById<TextView>(R.id.playerName).text = currentItem.player
-        rowView.findViewById<TextView>(R.id.gameDate).text = currentItem.date
-        rowView.findViewById<TextView>(R.id.state).text = currentItem.score
+
+        rowView.findViewById<TextView>(R.id.playerName).text = "Player: " + currentItem.player + ","
+        rowView.findViewById<TextView>(R.id.gameDate).text = "date: " + currentItem.date.split("T")[0] + ","
+
+        val gameState = rowView.findViewById<TextView>(R.id.gameState)
+        if (currentItem.score == "win")
+            gameState.text = "game won"
+        else if (currentItem.score =="loose")
+            gameState.text = "game loosed"
+        else
+            gameState.text = "game draw"
+
         rowView.id = position
         return rowView
     }

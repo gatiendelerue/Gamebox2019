@@ -4,32 +4,21 @@
                                              android:layout_height="match_parent">
 
     <TextView
-            android:text="TextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/gameName" app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="8dp" app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginLeft="8dp" android:layout_marginStart="8dp"/>
-    <TextView
-            android:text="TextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/gameDate" android:layout_marginLeft="8dp" android:layout_marginStart="8dp"
-            app:layout_constraintStart_toEndOf="@+id/gameName" app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="8dp"/>
-    <TextView
-            android:text="TextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/playerName" app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="8dp" android:layout_marginLeft="8dp" android:layout_marginStart="8dp"
-            app:layout_constraintStart_toEndOf="@+id/gameDate"/>
+            android:layout_marginTop="8dp" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginLeft="8dp" android:layout_marginStart="8dp"/>
     <TextView
-            android:text="TextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/state" app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="8dp"
-            app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"/>
+            android:id="@+id/gameDate" android:layout_marginLeft="8dp" android:layout_marginStart="8dp"
+            app:layout_constraintStart_toEndOf="@+id/playerName" app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="8dp"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/gameState" app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="8dp" android:layout_marginLeft="8dp" android:layout_marginStart="8dp"
+            app:layout_constraintStart_toEndOf="@+id/gameDate"/>
 </android.support.constraint.ConstraintLayout>

@@ -6,8 +6,10 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.ListView
 import com.google.gson.GsonBuilder
+import kotlinx.android.synthetic.main.fragment_score_list.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -56,11 +58,18 @@ class ScoreList : Fragment() {
 
                         var adapter = ScoreListAdapter(this@ScoreList.requireContext(), data)
                         Log.d("TAG", adapter.toString())
+
+                        title.text = "Scores for " + data[0].game
+
                         scoreList.setAdapter(adapter)
                     }
                 }
             }
 
+        }
+
+        buttonMainMenu.setOnClickListener {
+            (activity as MainActivity).onMyReturnButtonClicked()
         }
 
         service.getScore().enqueue(wsCallBack)

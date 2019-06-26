@@ -17,7 +17,7 @@ class GameListAdapter(private val context: Context,
         val layoutInflater = LayoutInflater.from(context)
 
         val rowView = layoutInflater.inflate(R.layout.list_item, parent, false)
-        rowView.findViewById<TextView>(R.id.gameName).text = currentItem.name
+        rowView.findViewById<TextView>(R.id.playerName).text = currentItem.name
         Glide.with(rowView).load(currentItem.picture).into(rowView.findViewById(R.id.gameImage))
         if (currentItem.name == "Hangman" || currentItem.name == "SlidingPuzzle")
         {

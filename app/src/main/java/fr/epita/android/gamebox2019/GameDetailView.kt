@@ -1,7 +1,5 @@
 package fr.epita.android.gamebox2019
 
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.util.Log
@@ -12,7 +10,6 @@ import android.widget.*
 import com.bumptech.glide.Glide
 import com.google.gson.GsonBuilder
 import kotlinx.android.synthetic.main.fragment_game_detail_view.*
-import kotlinx.android.synthetic.main.fragment_game_detail_view.view.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -51,7 +48,7 @@ class GameDetailsView : Fragment() {
         if (playable)
         {
             playButton.visibility = View.VISIBLE
-            playerName.visibility = View.VISIBLE
+            gameState.visibility = View.VISIBLE
         }
 
         val baseURL = "https://androidlessonsapi.herokuapp.com/api/"
@@ -82,7 +79,7 @@ class GameDetailsView : Fragment() {
                     game_desc.text = data?.description_en
                     view.findViewById<Button>(R.id.playButton).setOnClickListener {
                         Log.d("Button", "Play button pressed")
-                        (activity as MainActivity).onMyButtonWasClicked(view.findViewById<TextView>(R.id.playerName).text.toString(), game_name.text.toString(), game_id)
+                        (activity as MainActivity).onMyButtonWasClicked(view.findViewById<TextView>(R.id.gameState).text.toString(), game_name.text.toString(), game_id)
                     }
                 }
             }
