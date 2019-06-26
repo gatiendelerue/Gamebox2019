@@ -21,4 +21,7 @@
     <string name="game_over">GAME OVER</string>
     <string name="loose">You loose</string>
     <string name="Win">You win</string>
+    <string name="game_name">Game name</string>
+    <string name="game_image">Game image</string>
+    <string name="go_back_button">Go back button</string>
 </resources>
